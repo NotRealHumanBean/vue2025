@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Libre:wght@400;700&display=swap');
+html {
+    height: 100%;
+}
+#app {
+    height: 100%;
+}
+body {
+    background: #ffce1b;
+    height: 100%;
+    font-weight: 400;
+    font-size: 18px;
+    color: black;
+}
+.task__wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.task__container {
+    display: flex;
+    gap: 30px;
+}
+.task__container label {
+    font-size: 18px;
+}
+.input__container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.task2__month {
+    display: flex;
+    flex-direction: column;
+}
+.task2__month h5 {
+   margin-top: 10px;
+    margin-bottom: 10px;
+}
+.task3__input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.task3__input input {
+    margin-top: 10px;
+}
+.color-one {
+    color: black;
+    background: #ffce1b;
+    border-color: black;
+    margin: 0px;
+}
+.task3__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.task3__number p {
+    font-family: "Averia Libre", serif;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.task3 {
+    gap: 100px;
+}
+.task4 {
+    flex-direction: row;
+}
+.task4__wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.money {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.money__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.warning__message {
+    background-color: rgb(232, 75, 75);
+    color: azure;
+    margin-top: 15px;
+    
+}
+.welcoming__message {
+    background-color: rgb(75, 182, 123);
+    color: azure;
+}
+.render {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "Averia Libre", serif;
+}
+.login, .password {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.task5 {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+.task5 .warning__message, .task5 .welcoming__message {
+    margin: 0;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="task.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mustard-ui@latest/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="task.css">
+    <title>HW 2</title>
+</head>
+<!--
+Задача 2. Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….).
+ Також автоматично виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …).
+
+-->
+
+<body>
+    <div id="app">
+        <div class="task__wrapper">
+            <div class="task__container">
+                <div class="task2__month">
+                    <div class="input__container">
+                        <label>
+                            Номер місяця:
+                        </label>
+                        <input type="number" min="0" v-model.lazy.number="checkSeason">
+                    </div>
+                    <h5>Рекомендації:</h5>
+                    <p v-if="isMonthNotZero">Надворі {{season}}, вдягніть {{cloth}}</p>
+                </div>
+                <div class="image__container">
+                    <img :src="image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+        let seasons = {
+            spring: {
+                numbers: [3, 4, 5],
+                clothes: "кофту",
+                ukr_name: "весна",
+                image: "hw_1_images/spring.jpg"
+            },
+            summer: {
+                numbers: [6, 7, 8],
+                clothes: "футболку",
+                ukr_name: "літо",
+                image: "hw_1_images/summer.jpg"
+            },
+            autumn: {
+                numbers: [9, 10, 11],
+                clothes: "куртку",
+                ukr_name: "осінь",
+                image: "hw_1_images/autumn.jpg"
+            },
+            winter: {
+                numbers: [12, 1, 2],
+                clothes: "пуховик",
+                ukr_name: "зима",
+                image: "hw_1_images/winter.jpg"
+            }
+        }
+        createApp({
+            data() {
+                return {
+                    month_number: 0,
+                    season: null,
+                    cloth: null,
+                    image: null,
+                }
+            },
+            computed: {
+                isMonthNotZero() {
+                    return this.month_number !== 0;
+                },
+                checkSeason: {
+                    get() {
+                        for (key in seasons) {
+                            for (i in seasons[key]) {
+                                if (Array.isArray(seasons[key][i]) && seasons[key][i].includes(this.month_number)) {
+                                    this.season = seasons[key].ukr_name;
+                                    this.cloth = seasons[key].clothes;
+                                    this.image = seasons[key].image;
+                                }
+                            }
+                        }
+                    },
+                    set(val) {
+                        this.month_number = val;
+                    }
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
