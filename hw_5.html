@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mustard-ui@latest/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="task.css">
+    <title>HW 5</title>
+</head>
+<!--
+Додаток містить масив об’єктів (логін, пароль) --  інсуючі логіни і паролі.
+ Користувач вводить логін і пароль,  а програма повідомляє чи може користувач бути авторизованим
+(чи є він одним з масиву).
+-->
+
+<body>
+    <div id="app">
+        <div class="task__wrapper">
+            <div class="task__container task5">
+                <div class="login__container">
+                    <div class="login">
+                        <label for="">Login: </label>
+                        <input type="text" placeholder="your login" v-model="login">
+                    </div>
+                    <div class="password">
+                        <label for="">Password:</label>
+                        <input type="text" placeholder="your passwrd" v-model="password">
+                        <button class="color-one" @click="checkUser">GO</button>
+                    </div>
+                </div>
+                <div class="render" v-if="renderAlert">
+                    <p class="alert alert-warning welcoming__message " v-if="userValid">Вхід дозволено!</p>
+                    <p class="alert alert-warning warning__message" v-else-if=" !userValid">Вхід заборонено!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+        let credentials = [
+            {
+                login: "user",
+                password: "qwerty"
+            },
+            {
+                login: "profound_user",
+                password: "1456aa3"
+            },
+            {
+                login: "admin",
+                password: "122333"
+            },
+            {
+                login: "client",
+                password: "mmqws11226"
+            },
+            {
+                login: "traveller",
+                password: "password"
+            },
+            {
+                login: "geek",
+                password: "00000000000"
+            },
+            {
+                login: "master",
+                password: "smith325"
+            },
+        ]
+        createApp({
+            data() {
+                return {
+                    login: null,
+                    password: null,
+                    userValid: null,
+                    renderAlert: false
+                }
+            },
+            methods: {
+                checkUser() {
+                    for (const key in credentials) {
+                        if (credentials[key].login == this.login && credentials[key].password == this.password) {
+                            console.log("YES")
+                            this.userValid = true
+                            break
+                        } else {
+                            this.userValid = false
+                        }
+                    }
+                    this.renderAlert = true;
+                }
+
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

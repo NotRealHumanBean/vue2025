@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mustard-ui@latest/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="task.css">
+    <title>HW 3</title>
+</head>
+<!--
+Задача 3. Задано початок та кінець діапазону.
+ При натисканні на кнопку випадковим чином генерувати значення
+ з вказаного діапазону та відображати його.
+-->
+
+<body>
+    <div id="app">
+        <div class="task__wrapper">
+            <div class="task__container task3">
+                <div class="task3__input">
+                    <label>Початок діапазону:
+                        <input type="number" v-model.number="min">
+                    </label>
+                    <label>Кінець діапазону:
+                        <input type="number" v-model.number="max">
+                    </label>
+                    <button class="button-primary-outlined button-round color-one"
+                        @click="genRandom">Згенерувати</button>
+                </div>
+                <div class="task3__number">
+                    <p>{{random_number}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    min: 0,
+                    max: 0,
+                    random_number: 0,
+                }
+            },
+            methods: {
+                genRandom() {
+                    this.random_number = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

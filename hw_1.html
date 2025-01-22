@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mustard-ui@latest/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="task.css">
+    <title>HW_1</title>
+</head>
+
+<body>
+    <!--
+    Задача 1. Вводиться кількість пасажирів. Вивести:
+        ●	скільки потрібно автобусів (кожен автобус на 20 місць)
+        ●	скільки пляшок води (кожному пасажиру 2 пляшки)
+        ●	скільки бутербродів (кожному пасажиру 3 бутерброди)
+    -->
+    <div id="app">
+        <div class="task__wrapper">
+            <div class="task__container">
+                <div class="input__container">
+                    <label for="#">Кількість пасажирів: </label>
+                    <input type="number" min="0" v-model.number="passengers_number">
+                </div>
+                <div>
+                    <span>Автобусів потрібно: {{calcBus}}</span>
+                    <br>
+                    <span>Пляшок води потрібно: {{calcWater}}</span>
+                    <br>
+                    <span>Бутербродів потрібно: {{calcSandwitch}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+        const amountWater = 2;
+        const amountSandwitch = 3;
+        createApp({
+            data() {
+                return {
+                    passengers_number: 0,
+                }
+            },
+            computed: {
+                calcBus() {
+                    return Math.ceil(this.passengers_number / 20);
+                },
+                calcWater() {
+                    return this.passengers_number * amountWater;
+                },
+                calcSandwitch() {
+                    return this.passengers_number * amountSandwitch;
+                }
+            },
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
