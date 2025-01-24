@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Bank account</title>
+</head>
+<!--
+Задача 4. “Рахунок у банку”
+Вимоги:
+1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+3) можливість зарахувати суму (контролювати, щоб не була від’ємною)
+4) можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+
+При зміні суми :
+- якщо було зняття, то суму відоражати червоним
+- якщо було зарахування, то суму відображати зеленим
+Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим
+
+-->
+
+<body>
+    <div id="app">
+        <p>Сума на рахунку: {{money}} грн.</p>
+        <label for="">Зарахувати на рахунок:</label>
+        <input type="number" v-model.number="credit">
+        <input type="submit" value="Зарахувати" @click="calcCredit">
+        <br>
+        <label for="">Зняти з рахунку:</label>
+        <input type="number" v-model.number="debit">
+        <button @click="calcDebit">Зняти</button>
+        <p v-if="negative">Не можна зарахувати від'ємне число!!!</p>
+        <span v-if="lesserSum">На рахунку не вистачає грошей!!!</span>
+        <!-- <p>
+            
+        </p> -->
+        <p>Відсотки за обслуговування: {{percentage}} грн.</p>
+        <hr>
+        <p>Сума у доларах: ${{}}</p>
+        <p>Сума у євро: €{{}}</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+        const percent = 3;
+        let banka = 0;
+        createApp({
+
+            data() {
+                return {
+                    money: 0,
+                    debit: 0,
+                    credit: 0,
+                    euro: 43.39,
+                    dollar: 42.16,
+                    negative: false,
+                    lesserSum: false,
+                    percentage: 0,
+                }
+            },
+            methods: {
+                isNumberNegative(attr) {
+                    if (attr < 0) {
+                        this.negative = true;
+                    } else {
+                        this.negative = false;
+                    }
+                    // }
+                },
+                returnAlert(debit, sum) {
+                    if (debit > sum) {
+                        this.lesserSum = true;
+                    } else {
+                        this.lesserSum = false;
+                    }
+                },
+                // calcPercentage(mon, pers) {
+                //     pers = Math.ceil(mon / 100 * percent);
+                //     mon = mon - pers;
+                //     return mon, pers
+                // },
+                calcCredit() {
+                    this.isNumberNegative(this.credit);
+
+                    if (this.negative == false) {
+                        this.money = this.money + this.credit;
+                        banka = (this.credit / 100 * percent).toFixed(2);
+                        banka = parseFloat(banka);
+                        this.money = (this.money - banka).toFixed(2);
+                        this.money = parseFloat(this.money);
+                        this.percentage = (banka + this.percentage).toFixed(2);
+                        this.percentage = parseFloat(this.percentage);
+                        banka = 0;
+                    }
+                }, calcDebit() {
+                    this.isNumberNegative(this.debit);
+                    if (this.negative == false && this.debit <= this.money) {
+                        this.money = this.money - this.debit;
+                        banka = (this.debit / 100 * percent).toFixed(2);
+                        banka = parseFloat(banka);
+                        this.money = (this.money - banka).toFixed(2);
+                        this.money = parseFloat(this.money);
+                        this.percentage = (banka + this.percentage).toFixed(2);
+                        this.percentage = parseFloat(this.percentage);
+                        banka = 0;
+                    }
+                    this.returnAlert(this.debit, this.money)
+                }
+            },
+            computed: {
+
+                //this.money = this.money + this.credit;
+                // calcCredit: {
+                //     get() {
+                //         return this.credit
+                //     },
+                //     set(val) {
+                //         console.log(val);
+                //     }
+                // }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
